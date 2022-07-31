@@ -1,0 +1,17 @@
+@ECHO OFF
+
+cd %HOMEPATH%/Documents
+echo "Persistence method 1 has run successfully" > p1.bat
+
+cd %HOMEPATH%/Downloads
+echo "Persistence method 2 has run successfully" > p2.bat
+
+
+cd %HOMEPATH%/Desktops
+echo "Persistence method 3 has run successfully" > p3.bat
+
+cd C:\Scripts
+echo "Persistence method 4 has run successfully" > p4.bat
+
+cd C:\Scripts
+echo "Persistence method 5 has run successfully" > p5.bat
