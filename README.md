@@ -9,7 +9,7 @@ To use Windows Registry for persistence, a malicious user will inject malicious 
 
 Most scenarios will not invlove a graphically user interface so the only techniques that will be documented will be via terminal, command-line, powershell, etc.
 
-Note:
+Note: Add the following special characters to the name of the run key
 ! Delete after command runs successfully
 * Run in safe mode
  no prefix runonce will delete key prior to being run and will not run in safe mode
@@ -33,7 +33,7 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
 HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows
 
 
-System Permissions
+System or Admin Permissions
 Interval:
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnceEx
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
