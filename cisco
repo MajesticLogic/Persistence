@@ -1,0 +1,8 @@
+Startup-config    The configuration file that is loaded when the device boots up
+Running-config	  The configuration file that is currently running on the device
+NVRAM	            Non-volatile RAM that stores the startup-config
+Flash memory	    Non-volatile memory that stores the IOS image and other files
+TFTP server	      A remote server that stores configuration files and IOS images
+FTP server	      A remote server that stores configuration files and IOS images
+
+Note that the persistence locations may differ depending on the type and model of the Cisco device. These locations are important for backing up and restoring configurations, as well as for troubleshooting and upgrading the device's IOS image. They are also locations which adversaries use to maintain persistence.
