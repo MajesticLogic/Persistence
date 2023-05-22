@@ -6,3 +6,28 @@ TFTP server	      A remote server that stores configuration files and IOS images
 FTP server	      A remote server that stores configuration files and IOS images
 
 Note that the persistence locations may differ depending on the type and model of the Cisco device. These locations are important for backing up and restoring configurations, as well as for troubleshooting and upgrading the device's IOS image. They are also locations which adversaries use to maintain persistence.
+
+
+A startup-config is a configuration file that is used to store the initial configuration settings of a networking device, such as a router or a switch. This file is used to restore the device configuration settings in case of a failure or to reset the device to its original configuration.
+In the context of cybersecurity, a startup-config can be used as a way of achieving persistence. Here are some ways a startup-config can be used for persistence:
+
+1. Malware persistence: An attacker can modify the startup-config to configure the device to run malicious code or to connect to a remote command and control server. This would allow the attacker to maintain control of the device even after a reboot or a factory reset. For example, the attacker can modify the startup-config to add a new user with administrative privileges or to modify the device's routing table to redirect traffic to a malicious server.
+
+2. Configuration persistence: An attacker can modify the startup-config to change the device's configuration settings to suit their needs. For example, they can modify the device's DNS settings to redirect traffic to a malicious server or to configure a backdoor account that can be used to access the device later.
+
+3. Data persistence: An attacker can modify the startup-config to store sensitive data on the device. For example, they can store passwords, encryption keys, or configuration files on the device to ensure that they are not lost even after a reboot or a factory reset.
+
+An example of using a startup-config for persistence would be for an attacker to modify the startup-config of a router to redirect traffic to a malicious server. They can do this by modifying the device's routing table to route all traffic to a specific IP address. This would allow the attacker to intercept and monitor all network traffic passing through the router, allowing them to steal sensitive information or launch further attacks. The modified startup-config would ensure that the malicious routing persists even after a reboot or a factory reset of the router.
+
+A running-config is a configuration file that contains the current configuration of a network device, such as a router or switch. Attackers can use a running-config for persistence in several ways, such as:
+
+1. Backdoor accounts: An attacker can add a backdoor account to the running-config file, which would allow them to maintain persistent access to the device even if the device is rebooted or the configuration is reset. For example, an attacker could add a new user account with administrative privileges to the running-config file.
+
+2. Cron jobs: An attacker can add a cron job to the running-config file, which would execute a script or command at a specified time or interval. For example, an attacker could add a cron job to the running-config file that would execute a script to download and execute a malicious payload.
+
+3. Configuration scripts: An attacker can modify the running-config file to include configuration scripts that are executed at boot time or when certain events occur. For example, an attacker could modify the running-config file to include a script that would execute every time a specific user logs in.
+Here is an example of how an attacker could use a running-config file to add a backdoor account:
+
+username attacker privilege 15 password 0 Passw0rd!
+
+In this example, the attacker has added a new user account with the username "attacker" and a password of "Passw0rd!". The account has been given administrative privileges, which would allow the attacker to execute privileged commands on the device. This account would remain in the running-config file even if the device is rebooted or the configuration is reset, providing the attacker with persistent access to the device.
