@@ -31,3 +31,17 @@ Here is an example of how an attacker could use a running-config file to add a b
 username attacker privilege 15 password 0 Passw0rd!
 
 In this example, the attacker has added a new user account with the username "attacker" and a password of "Passw0rd!". The account has been given administrative privileges, which would allow the attacker to execute privileged commands on the device. This account would remain in the running-config file even if the device is rebooted or the configuration is reset, providing the attacker with persistent access to the device.
+
+
+Non-volatile random-access memory (NVRAM) is a type of memory that can store data even when the power is turned off. It is commonly used to store system configuration settings and firmware updates, but it can also be used for malicious purposes such as persistence.
+Here are some ways that NVRAM can be used for persistence:
+
+1. Firmware-level rootkits: An attacker can modify the firmware code stored in the NVRAM of a device to create a rootkit that survives reboots and even re-installation of the operating system.
+
+2. BIOS/UEFI malware: Similar to firmware-level rootkits, an attacker can modify the BIOS/UEFI firmware code stored in NVRAM to create malware that runs before the operating system is loaded.
+
+3. Malicious boot code: An attacker can modify the boot code stored in the NVRAM of a device to execute malicious code during the boot process.
+
+4. Persistent malware: Some malware can store itself in the NVRAM of a device to ensure that it is loaded every time the device is booted.
+
+Here's an example of how NVRAM can be used for persistence: A hacker can modify the firmware code stored in the NVRAM of a router to create a rootkit that allows them to maintain access to the network even after the router is rebooted or reset. This would allow the attacker to continue to monitor network traffic and steal sensitive information. Once the rootkit is in place, the attacker could also use it to launch attacks on other devices on the network.
