@@ -1,69 +1,67 @@
-# Persistence
+﻿# Advanced Persistence Techniques Reference
 
-This Repository is for documentation and files associated with testing persistence techniques
+## A Hunter's Guide to Adversary Persistence Methods & Detection
 
+This repository documents advanced persistence techniques used by adversaries across Windows, Linux, cloud infrastructure, and network devices (routers, switches, firewalls). Each technique includes MITRE ATT&CK mapping, adversary case studies, forensic indicators, and specific detection/hunting queries.
 
-Windows Registry is a database that stores settings and options for Microsoft Windows operating systems. It contains information and settings for system hardware, software, users, and preferences.
+## Repository Structure
 
-To use Windows Registry for persistence, a malicious user will inject malicious code into the Registry and then set it up to run at predictable times.
+```
+advanced-persistence/          → Technique documentation
+├── windows/                   → OS-level persistence (registry, services, boot)
+├── linux/                     → Kernel & service-level persistence
+├── network-infrastructure/    → Routers, switches, firewalls, DNS/DHCP servers
+├── cloud/                     → Azure AD, AWS IAM, GCP persistence
 
-Most scenarios will not invlove a graphically user interface so the only techniques that will be documented will be via terminal, command-line, powershell, etc.
+detection-hunting/             → Detection playbooks
+├── windows-hunting-playbook.md
+├── linux-hunting-playbook.md
+├── network-device-hunting.md
+└── cloud-hunting-playbook.md
+```
 
-Note: Add the following special characters to the name of the run key
-! Delete after command runs successfully
-* Run in safe mode
- no prefix runonce will delete key prior to being run and will not run in safe mode
+## What Makes This Different
 
-Here are the steps to set-up Windows Registry for persistence:
+Most persistence documentation stops at surface-level techniques. This repo covers:
 
-1. List of Registry Keys:
-Current User Permissions
+- **Advanced & uncommon methods** rarely documented in public research
+- **Network infrastructure persistence** (routers, switches, firewalls) — heavily under-documented
+- **Hunter-focused** content with detection logic, not just attack descriptions
+- **Real adversary case studies** from actual breach reports and red team engagements
+- **Detection artifacts** specific to each technique (log sources, registry keys, file artifacts)
 
-Interval: When user logs in
+## MITRE ATT&CK Coverage
 
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+| Tactic       | Techniques Covered                                                                 |
+|--------------|------------------------------------------------------------------------------------|
+| TA0003       | Registry Run Keys, Scheduled Tasks, Services, Boot Configuration Hijack           |
+| TA0004       | COM Hijacking, DLL Side-Loading, Kernel Driver Injection                          |
+| TA0005       | UEFI Firmware Persistence, Hypervisor Rootkits, Boot Sector                     |
+| TA0006       | SSH Backdoors, SNMP Configuration Abuse, DHCP/DNS Tampering                       |
+| TA0040       | Network Device Config Register Manipulation, EEM Applets, Port Forwarding         |
 
-Interval: When user login occurs run once and the key will be deleted
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
+## Quick Start for Hunters
 
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
-HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows
+1. Navigate to the category you want to hunt in (`advanced-persistence/`)
+2. Read the technique document for indicators
+3. Apply the hunting queries from `detection-hunting/<category>.md`
+4. Cross-reference with our [INDEX.md](./INDEX.md) for full coverage
 
+## Notes on Network Device Persistence
 
-System or Admin Permissions
-Interval:
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnceEx
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell
-HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager
+The network infrastructure section is deliberately detailed because:
+- Most organizations have **zero monitoring** on router/switch/firewall configs
+- These devices persist across host-level purges — if your edge router is owned, you own the network
+- Detection in this layer requires config diffs, syslog analysis, and SNMP trap auditing
 
+## Contributing
 
-Press the Windows Key + R, type in “regedit”, and then press Enter.
+If you discover new uncommon persistence methods or detection bypasses, open an issue with:
+1. Technique description & MITRE ID
+2. Real-world examples (if any)
+3. Suggested detection approaches
+4. References/threat intel sources
 
-2. Determine which registry key you want to alter:
+## Disclaimer
 
-Navigate to HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
-
-3. Does current permission allow access to registry key:
-
-Right-click the Run key and select New > String Value.
-
-4. Name the value:
-
-Name the value something that is unique and recognizable.
-
-5. Set a path for the value:
-
-Double-click the value that was created and put in the path to the malicious program that is to be executed each time the computer starts.
-
-6. Save the changes:
-
-Select File > Exit to save the changes and close the Registry Editor.
+This repository is for **educational and defensive purposes only**. All content should be used in authorized testing environments.
